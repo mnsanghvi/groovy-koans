@@ -11,8 +11,8 @@ class NameWithDefaultValue {
     String name
 
     // ------------ START EDITING HERE ----------------------
-    NameWithDefaultValue(String name = 'Anonymous') {
-        this.name = name
+    NameWithDefaultValue(String n="Anonymous"){
+        name = n;
     }
     // ------------ STOP EDITING HERE  ----------------------
 
