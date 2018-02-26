@@ -65,7 +65,8 @@ class Koan02 extends GroovyTestCase {
 
         // Remove (or change) the offending integer to continue
         // ------------ START EDITING HERE ----------------------
-        balance = balance.stream().filter{i->i>0}.collect()
+        //balance = balance.stream().filter{i->i!=0}.collect()
+        balance.removeIf{i->i==0}
         // ------------ STOP EDITING HERE  ----------------------
 
         // Iterate through the list and AND the boolean values of its members.
