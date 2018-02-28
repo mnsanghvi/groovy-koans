@@ -31,7 +31,7 @@ class Koan07 extends GroovyTestCase {
         def technologies = ['Grails', 'Gradle', '.NET', 'Python', 'Groovy']
         def regexp
         // ------------ START EDITING HERE ----------------------
-        regexp = '^G.*[e|s]$'
+        regexp = "^G.*[es]"
         // ------------ STOP EDITING HERE  ----------------------
         def result = technologies.findAll { it ==~ regexp }
 
@@ -51,7 +51,7 @@ class Koan07 extends GroovyTestCase {
         String groovyString
         // ------------ START EDITING HERE ----------------------
         groovyString = """In Java a multiline string
-requires using special signs such as $signs
+requires using special signs such as ${signs}
 and can become difficult to maintain"""
         // ------------ STOP EDITING HERE  ----------------------
         assert groovyString == javaString
@@ -113,12 +113,7 @@ and can become difficult to maintain"""
         def names = 'John Lennon, Paul McCartney, George Harrison, Ringo Starr'
         def firstNamesList = []
         // ------------ START EDITING HERE ----------------------
-        def matcher = names =~ /(\w+)\s(\w+)/
-        matcher.each { match, first, last ->
-            firstNamesList << first
-        }
-        // Note - there are better ways to achieve the same in Groovy (String.eachMatch, Collections.collect, etc)
-        // but that's not the point of this specific exercise :)
+        firstNamesList = (names =~ /(\w+)\s\w+/).collect{full, first-> first}
         // ------------ STOP EDITING HERE  ----------------------
         assert firstNamesList == ['John', 'Paul', 'George', 'Ringo']
 
@@ -146,7 +141,7 @@ and can become difficult to maintain"""
                       |In the land of submarines'''.stripMargin()
         def result
         // ------------ START EDITING HERE ----------------------
-        result = song.replaceAll(/\w+/) { dictionary[it] ?: it }
+        result = (song =~ /(\w+)(\s*)/).collect{full,word,space->(dictionary[word]?:word)+space}.join('')
         // ------------ STOP EDITING HERE  ----------------------
 
         def expected = '''|In the ciudad where I was born
@@ -171,12 +166,10 @@ and can become difficult to maintain"""
         // create the same regular expression to sum the total leftovers, but this time document the regex
         String regexp
         // ------------ START EDITING HERE ----------------------
-        regexp = /(?smx)
-                 (.*?)      # item name
-                 \s+        # space
-                 (\d+)      # number sold
-                 \s+        # space
-                 (\d+)      # leftover/
+        //regexp = /(\w+)\s+(\d+)\s+(\d+)/
+        regexp = /(?x)
+                    (\w+)\s+(\d+)\s+(\d+) #comment
+                    /
         // ------------ STOP EDITING HERE  ----------------------
         def sum = text.findAll(regexp) { it[3].toInteger() }.sum()
         // ^^ This is even more concise than the previous example! Choose the one you feel most comfortable with.
