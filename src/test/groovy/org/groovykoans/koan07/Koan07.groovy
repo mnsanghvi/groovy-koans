@@ -141,7 +141,8 @@ and can become difficult to maintain"""
                       |In the land of submarines'''.stripMargin()
         def result
         // ------------ START EDITING HERE ----------------------
-        result = (song =~ /(\w+)(\s*)/).collect{full,word,space->(dictionary[word]?:word)+space}.join('')
+        //result = (song =~ /(\w+)(\s*)/).collect{full,word,space->(dictionary[word]?:word)+space}.join('')
+        result = song.replaceAll(/\w+/) { dictionary[it] ?: it } //even better, from the solution provided
         // ------------ STOP EDITING HERE  ----------------------
 
         def expected = '''|In the ciudad where I was born
