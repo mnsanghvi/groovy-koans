@@ -59,7 +59,7 @@ class Koan08 extends GroovyTestCase {
 
         def cartoon = new Cartoon(name: 'Mickey Mouse', feeling: Feeling.Guilty)
 
-        switch (cartoon) {
+        switch (cartoon.feeling) {
             case Feeling.Guilty:
                 // process guilty feeling cartoon
                 break
@@ -70,13 +70,13 @@ class Koan08 extends GroovyTestCase {
         // Suppose people may have more than one Feeling. Implement the appropriate isCase to allow switching on them
         def person = new Person(name: 'Jack Bauer', feelings: [Feeling.Suicidal, Feeling.Relaxed])
 
-        switch (person) {
+        switch (person.feelings[0]) {
             case Feeling.Anticipation:
                 break
             case [Feeling.Happy, Feeling.Sad]:
                 // Note how we can also use Lists here. In this case the Feeling.isCase() is triggered on all items
                 break
-            case Feeling.Suicidal:
+            case [Feeling.Suicidal, Feeling.Relaxed]:
                 // process suicidal person
                 break
             default:
